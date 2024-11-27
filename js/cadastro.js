@@ -11,24 +11,9 @@ async function fetchUsers() {
   const response = await fetch(API_URL);
   // Trás os dados via API
   const users = await response.json();
-  userTable.innerHTML = '';
-  users.forEach(user => {
-      userTable.innerHTML += `
-          <tr>
-              <td>${user.nick_name}</td>
-              <td>${user.senha}</td>
-              <td>${user.idade}</td>
-              <td>
-                  <button onclick="editUser(${user.id}, '${user.nick_name}', '${user.senha}', ${user.idade})">Edit</button>
-                  <button onclick="deleteUser(${user.id})">Delete</button>
-              </td>
-          </tr>
-      `;
-  });
+
+  console.log(users)
 }
-
-
-
 
 
 
@@ -40,6 +25,7 @@ userForm.addEventListener('submit', async (e) => {
     senha: document.getElementById('senha').value,
     idade: parseInt(document.getElementById('idade').value)
   };
+
   await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,5 +33,14 @@ userForm.addEventListener('submit', async (e) => {
   });
   fetchUsers();
   userForm.reset();
+
+  if (user) {
+    // Se o usuário for encontrado, cria a sessão e redireciona para o menu
+    sessionStorage.setItem('usuario', user.NICK_NAME);  // Armazena na sessão local do navegador (sessionStorage)
+    window.location.href = "index.html";  // Redireciona para a página menu.html
+} else {
+    alert("Usuário e senha inválidos!");
+}
 });
+
 
