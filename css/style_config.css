@@ -1,0 +1,71 @@
+*{
+margin: 0%;
+padding: 0%;
+
+}
+
+body{
+    font-family: 'Patrick Hand SC', Helvetica;
+    
+}
+
+
+
+.navegacao{background-color: #69A5DB;
+}
+
+.coluna{
+    width: 100px;
+    height: 40px;
+    align-content: center; 
+    background-color:  white;
+    border-radius: 7%;
+    font-weight: bold;   
+}
+
+.imagem_nav{
+padding: 25px;
+
+}
+
+
+#fundo{
+    height: 100%;
+    margin-top:2%;
+    background-color: #69A5DB;
+}
+
+#fundo_cadastro{
+    height: 100%;
+    margin-top:2%;
+    background-color: #69A5DB;
+
+}
+
+.perfil_1{
+    border-radius: 100%;
+}
+
+
+#fim{
+    background-color: #69A5DB;
+}
+
+.form-switch{
+    width: 500px;
+}
+
+.fixarRodape {
+    height: 10%;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    text-align: center
+   
+}
+
+
+
+
+
+

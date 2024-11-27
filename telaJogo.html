@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunCode</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style_config.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
+
+
+</head>
+<body class="text-dark tela_jogo">
+  
+  <nav class="navbar navegacao">
+    <div class="container-fluid">
+        <img src="/assets/robo_nav.png" alt="robo_nav">
+      
+     
+        
+    <div class="coluna" id="coracao">    
+        <a class="navbar-brand imagem_nav" href="#">
+        <img src="/assets/coracao.png" alt="robo_nav"  class="d-inline-block align-text-top"> 3
+        </a>
+    </div>
+
+    <div class="coluna">
+        <a class="navbar-brand imagem_nav" href="#">
+          <img src="/assets/moeda.png" alt="robo_nav"  class="d-inline-block align-text-top">
+          3
+        </a>
+    </div>
+
+
+    <div class="coluna">        
+        <a class="navbar-brand imagem_nav" href="#">
+          <img src="/assets/diamante.png" alt="robo_nav" class="d-inline-block align-text-top">
+          3
+        </a>
+    </div>
+    
+    </div>
+  </nav>
+
+  <div class="container py-5 text-center">
+    <h1 class="mb-4">FunCode GameShow</h1>
+    <div id="game-container" class="border p-4 rounded">
+      <h3 id="question" class="mb-4">Bem-vindo ao jogo! Clique para começar.</h3>
+      <div id="options" class="row">
+        <div><img src="/assets/robo_ini.png" alt=""></div>
+        <div class="col-md-6 mb-3">
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Opção A</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Opção B</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Opção C</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Opção D</button>
+        </div>
+      </div>
+      <p id="score" class="mt-4 fs-2 fw-bold">Pontuação: 0</p>
+    </div>
+  </div>
+
+  <footer class="final fixed-bottom">
+      
+    <div class="container">
+      <div class="row">
+        <div class="col my-5 p-0">
+          <a href="/index.html"><img src="assets/folter_inicio.png" alt=""></a>
+        </div>
+        <div class="col my-5 p-0">
+          <img src="assets/folter_trof.png" alt="">
+        </div>
+        <div class="col my-5 p-0">
+          <a href="/telaCadastro.html"><img src="assets/profile 1.png" alt=""></a>
+        </div>
+        <div class="col my-5 p-0">
+          <a href="TelaConfig.html"><img src="assets/conf.png" alt=""></a>
+        </div>
+      </div>
+    </div>
+
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/tela_jogo.js"></script>
+</body>
+</html>

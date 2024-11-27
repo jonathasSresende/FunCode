@@ -1,0 +1,26 @@
+body{
+    font-family: 'Patrick Hand SC', Helvetica;
+    
+}
+
+
+.navegacao{background-color: #69A5DB;
+}
+
+.coluna{
+    width: 100px;
+    height: 40px;
+    align-content: center; 
+ 
+    background-color:  white;
+    border-radius: 7%;
+    font-weight: bold;   
+}
+
+
+
+
+.final {
+    background-color: #69A5DB;
+    
+}
