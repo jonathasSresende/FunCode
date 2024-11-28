@@ -64,6 +64,26 @@ def update_user(id):
 
 
 
+#usuario Ta em cima
+#-----------------------------------------------------------------------------------------
+
+    # # Vai usar o json cuja key são os IDs
+    # cursor.execute("INSERT INTO modelo (id, modelo) VALUES (%s, %s)",
+    #                (data['id'], data['modelo']))
+    # conn.commit()
+
+    # # Fechar o cursor e a conexão
+    # cursor.close()
+    # conn.close()
+
+    # return jsonify({"message": "User created successfully"}), 201
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
