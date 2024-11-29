@@ -62,8 +62,6 @@ def update_user(id):
     return jsonify({"message": "User updated successfully"}), 200
 
 
-
-
 #usuario Ta em cima
 #-----------------------------------------------------------------------------------------
 
@@ -80,11 +78,7 @@ def update_user(id):
 
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
+
+

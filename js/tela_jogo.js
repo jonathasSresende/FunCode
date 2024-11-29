@@ -172,7 +172,7 @@ const questions = [
       document.getElementById("game-container").innerHTML = `
         <h3>Parabéns! Você completou o jogo.</h3>
         <p>Sua pontuação final é: ${score}</p>
-        <button class="btn btn-success" onclick="restartGame()">Jogar Novamente</button>
+        
       `;
     }
   }
