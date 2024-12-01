@@ -15,7 +15,9 @@ const userForm=document.querySelector("#userForm");
 
     if (user) {
         // Se o usuário for encontrado, cria a sessão e redireciona para o menu
-        sessionStorage.setItem('usuario', user.NICK_NAME);  // Armazena na sessão local do navegador (sessionStorage)
+        sessionStorage.setItem('usuario', {
+          nickname: user.NICK_NAME,
+          idade: user.idade});  // Armazena na sessão local do navegador (sessionStorage)
         window.location.href = "menu.html";  // Redireciona para a página menu.html
     } else {
         alert("Usuário ou senha inválidos!");

@@ -174,6 +174,8 @@ const questions = [
         <p>Sua pontuação final é: ${score}</p>
         
       `;
+      usuario = sessionStorage.getItem('usuario');
+      saveUser(usuario, usuario, score);
     }
   }
 
@@ -204,3 +206,9 @@ const questions = [
   }
 
   loadQuestion();
+
+  function saveUser(nickname, age, points) {
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    users.push({ nickname, age, points });
+    localStorage.setItem('users', JSON.stringify(users));
+}

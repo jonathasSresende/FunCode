@@ -58,9 +58,9 @@ function loadRanking() {
  
 // Exemplo de uso: Adiciona alguns usuários ao localStorage
 // Você pode remover ou modificar isso para adicionar usuários de outra forma
-saveUser('Usuario1', 25, 10);
-saveUser('Usuario2', 30, 8);
-saveUser('Usuario3', 22, 5);
+// saveUser('Usuario1', 25, 10);
+// saveUser('Usuario2', 30, 8);
+// saveUser('Usuario3', 22, 5);
  
 // Carrega o ranking quando a página é carregada
 window.onload = loadRanking;
