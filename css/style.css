@@ -22,5 +22,11 @@ body{
 
 .final {
     background-color: #69A5DB;
+    width: 100%;
+    height: 30%;
+    margin-top: 2%;
+    padding: 0.01%;
+
     
 }
+.fixed-bottom{background-color: #69A5DB;}
