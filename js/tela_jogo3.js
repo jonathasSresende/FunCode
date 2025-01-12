@@ -1,10 +1,14 @@
 // Definindo a pergunta e as opções
-const question = "Quantos blocos o robô precisa andar em linha reta para chegar ao troféu?";
+const question = `Um robô quer ir até a Lua. Para isso, ele precisa dar pulos nos meteoros. Ele pode pular um meteoro por vez, e ele precisa dar 9 pulos para chegar à Lua.
+
+Pergunta:
+Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 9 pulos?
+`;
 const options = [
-    "2 Quadrados", // Opção A
-    "4 Quadrados",  // Opção B (correta)
-    "5 Quadrados", // Opção C
-    "8 Quadrados"   // Opção D
+    "Robô dá 10 pulos de uma vez só e chega à Lua.", // Opção A
+    "Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.",  // Opção B 
+    "Robô dá 1 pulo e depois para. Ele não chega à Lua.", // Opção C
+    "Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 9 pulos."   // Opção D (correta)
 ];
 
 let score = 0; // Inicializa a pontuação
@@ -20,7 +24,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 1; // O índice da resposta correta (Opção B)
+    const correctIndex = 3; // O índice da resposta correta (Opção B)
     const resultMessage = document.createElement("div");
     resultMessage.className = "result-message";
 

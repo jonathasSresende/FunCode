@@ -1,10 +1,16 @@
 // Definindo a pergunta e as opções
-const question = "Quantos blocos o robô precisa andar em linha reta para chegar ao troféu?";
+const question = `O robo adora brincar de esconde-esconde. 
+Ele tem uma regra especial para decidir se ele deve contar até 10 ou até 20 antes de começar a procurar. A regra é a seguinte:
+
+Se o número de jogadores for menor que 5, Robo conta até 10.
+Senao Robo conta até 20.
+
+Se o número de jogadores for 4, até que número Robo vai contar?`;
 const options = [
-    "2 Quadrados", // Opção A
-    "4 Quadrados",  // Opção B (correta)
-    "5 Quadrados", // Opção C
-    "8 Quadrados"   // Opção D
+    "5 segundos", // Opção A
+    "10 segundos",  // Opção B (correta)
+    "15 segundos", // Opção C
+    "20 segundos"   // Opção D
 ];
 
 let score = 0; // Inicializa a pontuação

@@ -1,10 +1,17 @@
 // Definindo a pergunta e as opções
-const question = "Quantos blocos o robô precisa andar em linha reta para chegar ao troféu?";
+const question = `Imagine que você tem um robô muito inteligente! Esse robô adora fazer contas. Sempre que você dá um número para ele, ele pega esse número e soma com o dobro desse número.
+
+Por exemplo, se você der o número 3, o robô faz assim:
+
+Primeiro, ele calcula o dobro de 3, que é 6.
+Depois, ele soma 3 + 6, que dá 9.
+Agora, se você der os números 5, 2 e 10 para o robô, quais números ele vai devolver?
+` ;
 const options = [
-    "2 Quadrados", // Opção A
-    "4 Quadrados",  // Opção B (correta)
-    "5 Quadrados", // Opção C
-    "8 Quadrados"   // Opção D
+    "10, 4, 20", // Opção A
+    "25, 4, 100",  // Opção B 
+    "15, 6, 30", // Opção C (correta)
+    "12, 10, 30"   // Opção D
 ];
 
 let score = 0; // Inicializa a pontuação
@@ -20,7 +27,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 1; // O índice da resposta correta (Opção B)
+    const correctIndex = 3; // O índice da resposta correta (Opção B)
     const resultMessage = document.createElement("div");
     resultMessage.className = "result-message";
 
