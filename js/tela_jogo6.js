@@ -1,14 +1,13 @@
 // Definindo a pergunta e as opções
-const question = `Um robô quer ir até a Lua. Para isso, ele precisa dar pulos nos meteoros. Ele pode pular um meteoro por vez, e ele precisa dar 10 pulos para chegar à Lua.
+const question = `Você está ajudando um robô a decidir se ele pode brincar no parque. Para isso, você precisa comparar a idade do robô com a idade mínima para brincar, que é 5 anos.
 
-Pergunta:
-Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 10 pulos?
-`;
+Se o robô tem 6 anos, ele pode brincar?
+` ;
 const options = [
-    "Robô dá 10 pulos de uma vez só e chega à Lua.", // Opção A
-    "Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.",  // Opção B 
-    "Robô dá 1 pulo e depois para. Ele não chega à Lua.", // Opção C
-    "Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 10 pulos."   // Opção D (correta)
+    "Sim, porque ele é mais velho que 5 anos.", // Opção A (correta)
+    "Não, porque ele é mais novo que 5 anos.",  // Opção B 
+    "Sim, porque ele tem exatamente 5 anos.", // Opção C 
+    "Não, porque ele não pode brincar."   // Opção D
 ];
 
 let score = 0; // Inicializa a pontuação
@@ -24,7 +23,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 3; // O índice da resposta correta (Opção B)
+    const correctIndex = 0; // O índice da resposta correta (Opção B)
     const resultMessage = document.createElement("div");
     resultMessage.className = "result-message";
 

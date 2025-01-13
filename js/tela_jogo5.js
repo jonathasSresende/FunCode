@@ -1,14 +1,13 @@
 // Definindo a pergunta e as opções
-const question = `Um robô quer ir até a Lua. Para isso, ele precisa dar pulos nos meteoros. Ele pode pular um meteoro por vez, e ele precisa dar 10 pulos para chegar à Lua.
+const question = `O robô está se preparando para uma grande aventura no Ártico! Ele precisa levar algumas coisas importantes na mala para se manter aquecido e confortável.
 
-Pergunta:
-Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 10 pulos?
-`;
+Se você pudesse escolher um item que o robô deve guardar na mala, qual seria?
+` ;
 const options = [
-    "Robô dá 10 pulos de uma vez só e chega à Lua.", // Opção A
-    "Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.",  // Opção B 
-    "Robô dá 1 pulo e depois para. Ele não chega à Lua.", // Opção C
-    "Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 10 pulos."   // Opção D (correta)
+    "Uma blusa quentinha", // Opção A (correta)
+    "Uma regata leve",  // Opção B 
+    "Um chinelo confortável", // Opção C 
+    "Uma prancha de surfe"   // Opção D
 ];
 
 let score = 0; // Inicializa a pontuação
@@ -24,7 +23,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 3; // O índice da resposta correta (Opção B)
+    const correctIndex = 0; // O índice da resposta correta (Opção B)
     const resultMessage = document.createElement("div");
     resultMessage.className = "result-message";
 

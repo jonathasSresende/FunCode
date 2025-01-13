@@ -1,14 +1,12 @@
 // Definindo a pergunta e as opções
-const question = `Um robô quer ir até a Lua. Para isso, ele precisa dar pulos nos meteoros. Ele pode pular um meteoro por vez, e ele precisa dar 10 pulos para chegar à Lua.
-
-Pergunta:
-Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 10 pulos?
-`;
+const question = `O robô que você programou está tentando acender uma luz, mas a luz não acende. 
+Isso significa que algo está errado no código. O que você deve fazer para descobrir o problema?
+` ;
 const options = [
-    "Robô dá 10 pulos de uma vez só e chega à Lua.", // Opção A
-    "Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.",  // Opção B 
-    "Robô dá 1 pulo e depois para. Ele não chega à Lua.", // Opção C
-    "Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 10 pulos."   // Opção D (correta)
+    "Ignorar o robô e brincar com outra coisa.", // Opção A 
+    "Verificar o código do robô para ver se ele escreveu (acender) corretamente.",  // Opção B (correta)
+    "Desligar o robô e deixá-lo de lado.", // Opção C 
+    "Pedir para o robô tentar acender a luz de novo."   // Opção D
 ];
 
 let score = 0; // Inicializa a pontuação
@@ -24,7 +22,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 3; // O índice da resposta correta (Opção B)
+    const correctIndex = 1; // O índice da resposta correta (Opção B)
     const resultMessage = document.createElement("div");
     resultMessage.className = "result-message";
 
