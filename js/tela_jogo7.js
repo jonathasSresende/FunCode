@@ -22,43 +22,51 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 1; // O índice da resposta correta (Opção B)
-    const resultMessage = document.createElement("div");
-    resultMessage.className = "result-message";
+    const correctIndex = 2; // O índice da resposta correta (Opção B)
 
-    // Limpa mensagens anteriores
-    const existingMessage = document.querySelector(".result-message");
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+    // Lógica para abrir o modal com a resposta
+    const modal = document.getElementById("resultModal");
+    const modalMessage = document.getElementById("modalMessage");
+    const modalButtonContainer = document.getElementById("modalButtonContainer");
+
+    // Limpa os botões do modal antes de adicionar novos
+    modalButtonContainer.innerHTML = '';
 
     if (selectedIndex === correctIndex) {
         score++;
-        resultMessage.innerText = "Você Acertou!";
-        
-        // Botão para voltar à página anterior
+        modalMessage.innerText = `Você Acertou!
+EXPLICAÇÃO:
+Errar faz parte do aprendizado! Seja no começo ou depois de muito tempo programando, é normal cometer erros. Quando isso acontece, precisamos revisar tudo com calma e procurar onde está o problema. No caso do nosso Robô, algo está errado no código. Vamos dar uma olhada:
+
+Robo deve ligar_luz():
+       Acemder luz
+
+Aqui, a palavra "Acemder" está escrita errado! O certo seria "Acender". Se tivermos um erro assim no código, o computador não entende o que queremos fazer, e a luz não acende. Por isso, sempre que algo não funcionar, revisamos o código para encontrar e corrigir os erros!
+        `;
+
+        // Botão para voltar ao menu
         const backButton = document.createElement("button");
         backButton.innerText = "Voltar para o Menu";
-        backButton.className = "btn btn-success d-flex row m-auto";
+        backButton.className = "btn btn-success";
         backButton.onclick = function() {
             window.location.href = "./menu.html";
         };
-        resultMessage.appendChild(backButton);
+        modalButtonContainer.appendChild(backButton);
     } else {
-        resultMessage.innerText = "Tente novamente!";
-        
-        // Adiciona um botão para reiniciar o jogo
+        modalMessage.innerText = "Tente novamente!";
+
+        // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
         restartButton.innerText = "Reiniciar";
-        restartButton.className = "btn btn-danger d-flex row m-auto ";
+        restartButton.className = "btn btn-danger";
         restartButton.onclick = restartGame;
-        resultMessage.appendChild(restartButton);
+        modalButtonContainer.appendChild(restartButton);
     }
 
-    // Exibe a mensagem de resultado
-    document.getElementById("game-container").appendChild(resultMessage);
-    
-    // Desabilita os botões após a resposta
+    // Exibe o modal
+    modal.style.display = "flex";
+
+    // Desabilita os botões de opção após a resposta
     const optionsButtons = document.querySelectorAll(".option");
     optionsButtons.forEach(button => {
         button.disabled = true;
@@ -66,6 +74,7 @@ function checkAnswer(selectedIndex) {
 }
 
 // Função para reiniciar o jogo
+
 function restartGame() {
     // Limpa a mensagem de resultado
     const resultMessage = document.querySelector(".result-message");
@@ -84,6 +93,20 @@ function restartGame() {
     document.getElementById("score").innerText = "Pontuação: " + score;
     startGame();
 }
+
+// Função para fechar o modal quando clicar no "X"
+document.getElementById("closeModalBtn").onclick = function() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+};
+
+// Função para fechar o modal se o usuário clicar fora da área do conteúdo
+window.onclick = function(event) {
+    const modal = document.getElementById("resultModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
