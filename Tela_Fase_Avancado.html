@@ -7,8 +7,13 @@
   <link rel="icon" href="./assets/favicon.ico">
   <!-- Link do Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./CSS/style_TelaFases.css">
+  <link rel="stylesheet" href="./CSS/style_config.css">
   <link rel="stylesheet" href="./css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
+
 </head>
 <body>
       <!-- Nav -->
@@ -44,95 +49,86 @@
         </div>
       </nav>
 
-
-    <!-- Fundo -->
-    <div class="container col-8 text-center rounded mt-3 p-3" style="background-color: #6cace4; height:83vh">
       
-      <!-- Modulo -->
-        <h2 class="fs-4 text-dark bg-white mb-3 rounded" >Módulo 1 - Lógica de Programação</h2>
-
-        <!-- Seta -->
-        <div id="seta" class="d-flex align-items-center mb-4 mt-4 gap-3" >
-            <!-- Seta de retorno -->
-            <div class="arrow-back">
-                <a href="">
-              <img src="./assets/streamline_return-2-solid.png" alt="Seta de Retorno">
-                </a>
+      <main>
+        <!-- Fundo -->
+        <div id="fundo" class="container col-8">
+  
+          <!-- Seta & Configurações -->
+          <div class="row align-items-center">
+            <div class="col-auto m-3">
+              <a href="menu.html">
+                <img src="./Assets/streamline_return-2-solid.png" alt="">
+              </a>
             </div>
+  
+            <div class="col rounded-3 bg-white m-4 d-flex">
+              <img src="assets/cerebro.png" class="p-3" alt="">
+              <h2 class="text-center">Módulo 1 - Lógica de Programação</h2>
+            </div>
+          </div>
+
+          <div class="d-flex colunm bg-white m-3 col-11 col-sm-9 col-lg-7 mx-auto rounded-2 justify-content-center align-items-center">
+            <img src="assets/barra_ligada.png" class="p-2" alt="">
+            <img src="assets/barra_apagada.png" class="p-2" alt="">
+            <img src="assets/barra_apagada.png" class="p-2" alt="">
+            <h2 class="px-5">avançado</h2>
             
-
-            <!-- Componente de progresso -->
-            <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
-              <!-- Barra de progresso -->
-              <div class="progress-bar-custom flex-grow-1">
-                <div class="circle circle-yellow"></div>
-                <div class="circle circle-brown"></div>
-                <div class="circle circle-brown"></div>
-              </div>
-        
-              <!-- Texto de nível -->
-              <div class="ms-3 fw-bold text-dark">AVANÇADO</div>
-            </div>
+            
+          </div>
+            
+  
+          <!-- Sequência de Comandos -->
+          <div class="d-flex colunm bg-white m-3 col rounded-2 ">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Funções Recursivas</a>
+          </div>
+  
+          <!-- Condicionais if/else -->
+          <div class="d-flex bg-white m-3 col rounded-2 ">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Busca e Ordenação</a>
+          </div>
+  
+          <!-- Laços de Repetição Loop -->
+          <div class="d-flex bg-white m-3 col rounded-2 ">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Algoritimos de Divisão e Conquistas</a>
+          </div>
+  
+          <!-- Entrada e Saída de dados -->
+          <div class="d-flex bg-white m-3 col rounded-2 ">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Lógica Posicional</a>
+          </div>
+          
+          <!-- Variáveis -->
+          <div class="d-flex bg-white m-3 col rounded-2">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Optimização de Código</a>
           </div>
 
-
-
-      <!-- Lista de Aprendizado -->
-      <div class="module">
-        
-        <!--Funções Recursivas-->
-        <div class=" item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Funções Recursivas</a>
-        </div>
-
-        <!-- Busca e Ordenação -->
-        <div class="item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Busca e Ordenação</a>
-        </div>
-
-        <!-- Algoritimos de Divisão e Conquistas -->
-        <div class="item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Algoritimos de Divisão e Conquistas</a>
-        </div>
-
-        <!-- Lógica Posicional-->
-        <div class="item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Lógica Posicional</a>
-        </div>
-
-        <!-- Optimização de Código -->
-        <div class="item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Optimização de Código</a>
-        </div>
-
-
-        <!-- Algoritimos de Busca -->
-        <div class="item bg-white d-flex align-items-center p-2 rounded mb-2">
-          <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-          <a class="text-decoration-none text-dark">Algoritimos de Busca</a>
-        </div>
-
-        <!-- Análise de Complexidade -->
-        <div class="item bg-white d-flex align-items-center p-2 rounded ">
-            <img src="./assets/estrela 7.png" alt="Estrela" class="me-2">
-            <a class="text-decoration-none text-dark">Análise de Complexidade</a>
+          <!-- Comparação Simples -->
+          <div class="d-flex bg-white m-3 col rounded-2">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Algoritimos de Busca</a>
           </div>
 
-          <div class="robot mt-4">
-            <img src="./assets/robo_ini.png" alt="Robô">
+          <!-- Depuração Básica -->
+          <div class="d-flex bg-white m-3 col rounded-2">
+            <img src="assets/estrela 7.png" class="p-2" alt="">
+            <a class="fs-4 text-decoration-none text-dark" href="">Análise de Complexidade</a>
           </div>
+          
+          <img class="rounded mx-auto d-block" src="assets/robo_grande.png" alt="">
+           
+        </div>
+    </main>
 
-      </div>
-    </div>
-
-    <footer class="final fixed-bottom">
+    
+    <footer class="final">
       
-      <div class="container my-5">
+      <div class="container my-4">
         <div class="row mx-auto ">
           <div class="col ">
             <a href="./menu.html"><img src="assets/folter_inicio.png" alt=""></a>
@@ -154,8 +150,8 @@
   
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-
