@@ -77,6 +77,85 @@ def update_user(id):
     # return jsonify({"message": "User created successfully"}), 201
 
 
+# Trilha ---------------------------------------------------
+
+# Rota para criar uma nova trilha
+
+@app.route('/trilhas', methods=['POST'])
+def create_trilha():
+    id_usuario = request.json['id_usuario']
+    # O data esta vindo do javascript json
+    data = request.json
+    
+    # Conectar ao banco de dados
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Verificar se já existe um progresso para o usuário
+    cursor.execute("SELECT ID FROM PROGRESSO WHERE ID_MODULO = 1 AND ID_EXERCICIO = 1 LIMIT 1")
+    progresso = cursor.fetchone()
+
+    if progresso is None:
+        # Chamar a stored procedure para adicionar progresso
+        cursor.callproc('AddProgresso')
+        cursor.execute("SELECT @new_id")
+        new_progresso_id = cursor.fetchone()[0]
+    else:
+        new_progresso_id = progresso[0]
+
+    # Inserir nova trilha com o ID do progresso
+    cursor.execute("INSERT INTO TRILHA (ID_USUARIO, ID_PROGRESSO) VALUES (%s, %s)", (id_usuario, new_progresso_id))
+    conn.commit()
+
+    # Fechar a conexão
+    cursor.close()
+    conn.close()
+
+    return jsonify({'message': 'Trilha criada com sucesso!', 'id_progresso': new_progresso_id}), 201
+
+# Rota para obter todas as trilhas
+@app.route('/trilhas', methods=['GET'])
+def get_trilhas():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM TRILHA")
+    trilhas = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify(trilhas)
+
+# Rota para atualizar uma trilha
+@app.route('/trilhas/<int:id>', methods=['PUT'])
+def update_trilha(id):
+    id_usuario = request.json['id_usuario']
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("UPDATE TRILHA SET ID_USUARIO = %s WHERE ID = %s", (id_usuario, id))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({'message': 'Trilha atualizada com sucesso!'})
+
+# Rota para deletar uma trilha
+@app.route('/trilhas/<int:id>', methods=['DELETE'])
+def delete_trilha(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM TRILHA WHERE ID = %s", (id,))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({'message': 'Trilha deletada com sucesso!'}), 204
 
 if __name__ == '__main__':
     app.run(debug=True)
