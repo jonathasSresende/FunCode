@@ -24,43 +24,57 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 3; // O índice da resposta correta (Opção B)
-    const resultMessage = document.createElement("div");
-    resultMessage.className = "result-message";
+    const correctIndex = 1; // O índice da resposta correta (Opção B)
 
-    // Limpa mensagens anteriores
-    const existingMessage = document.querySelector(".result-message");
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+    // Lógica para abrir o modal com a resposta
+    const modal = document.getElementById("resultModal");
+    const modalMessage = document.getElementById("modalMessage");
+    const modalButtonContainer = document.getElementById("modalButtonContainer");
+
+    // Limpa os botões do modal antes de adicionar novos
+    modalButtonContainer.innerHTML = '';
 
     if (selectedIndex === correctIndex) {
         score++;
-        resultMessage.innerText = "Você Acertou!";
-        
-        // Botão para voltar à página anterior
+        modalMessage.innerText = `Você Acertou!
+EXPLICAÇÃO:
+Na programação, muitas vezes precisamos repetir uma ação várias vezes. Em vez de escrever o mesmo comando várias vezes, usamos algo chamado laço de repetição (ou loop). Ele faz a mesma coisa várias vezes automaticamente!
+O código para o robô dar 10 pulos seria assim:
+Robo = 0  Meteoros
+Enquanto Robo < 10:  
+         Robo + Pula 1 meteoro  
+  
+Robo CHEGOU na Lua! 
+Aqui está o que acontece no código:
+Começamos com o robô tendo feito 0 pulos.
+Enquanto o robô não tiver pulado 10 meteoros ele não irá para de pular.A cada pulo, o robô pula 1 meteoro.Quando o robô chegar a 10 pulos, ele para e comemora na Lua! 🚀
+Usar laços de repetição é uma maneira mais rápida e inteligente de repetir coisas. Muito melhor do que escrever tudo várias vezes, não é?
+
+        `;
+
+        // Botão para voltar ao menu
         const backButton = document.createElement("button");
         backButton.innerText = "Voltar para o Menu";
-        backButton.className = "btn btn-success d-flex row m-auto";
+        backButton.className = "btn btn-success";
         backButton.onclick = function() {
             window.location.href = "./menu.html";
         };
-        resultMessage.appendChild(backButton);
+        modalButtonContainer.appendChild(backButton);
     } else {
-        resultMessage.innerText = "Tente novamente!";
-        
-        // Adiciona um botão para reiniciar o jogo
+        modalMessage.innerText = "Tente novamente!";
+
+        // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
         restartButton.innerText = "Reiniciar";
-        restartButton.className = "btn btn-danger d-flex row m-auto ";
+        restartButton.className = "btn btn-danger";
         restartButton.onclick = restartGame;
-        resultMessage.appendChild(restartButton);
+        modalButtonContainer.appendChild(restartButton);
     }
 
-    // Exibe a mensagem de resultado
-    document.getElementById("game-container").appendChild(resultMessage);
-    
-    // Desabilita os botões após a resposta
+    // Exibe o modal
+    modal.style.display = "flex";
+
+    // Desabilita os botões de opção após a resposta
     const optionsButtons = document.querySelectorAll(".option");
     optionsButtons.forEach(button => {
         button.disabled = true;
@@ -68,6 +82,7 @@ function checkAnswer(selectedIndex) {
 }
 
 // Função para reiniciar o jogo
+
 function restartGame() {
     // Limpa a mensagem de resultado
     const resultMessage = document.querySelector(".result-message");
@@ -86,6 +101,20 @@ function restartGame() {
     document.getElementById("score").innerText = "Pontuação: " + score;
     startGame();
 }
+
+// Função para fechar o modal quando clicar no "X"
+document.getElementById("closeModalBtn").onclick = function() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+};
+
+// Função para fechar o modal se o usuário clicar fora da área do conteúdo
+window.onclick = function(event) {
+    const modal = document.getElementById("resultModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;

@@ -27,42 +27,58 @@ function startGame() {
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
     const correctIndex = 1; // O índice da resposta correta (Opção B)
-    const resultMessage = document.createElement("div");
-    resultMessage.className = "result-message";
 
-    // Limpa mensagens anteriores
-    const existingMessage = document.querySelector(".result-message");
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+    // Lógica para abrir o modal com a resposta
+    const modal = document.getElementById("resultModal");
+    const modalMessage = document.getElementById("modalMessage");
+    const modalButtonContainer = document.getElementById("modalButtonContainer");
+
+    // Limpa os botões do modal antes de adicionar novos
+    modalButtonContainer.innerHTML = '';
 
     if (selectedIndex === correctIndex) {
         score++;
-        resultMessage.innerText = "Você Acertou!";
-        
-        // Botão para voltar à página anterior
+        modalMessage.innerText = `Você Acertou!
+EXPLICAÇÃO:
+Na programação, usamos uma ideia básica: se algo acontece, fazemos uma coisa; se não acontece, fazemos outra. O código para este jogo seria assim:
+Jogadores = 4  
+Robo = Conta 0  
+Se Jogadores < 5:  
+         Robo + Conta 10
+  
+Senão:  
+         Robo + Conta 20
+  
+Aqui, temos 4 jogadores. O robô começa com 0 porque ainda não contou. Ele verifica:
+Se há menos de 5 jogadores, soma 10.
+Se há 5 ou mais, soma 20.
+Como há 4 jogadores, o robô vai contar até 10!
+
+        `;
+
+        // Botão para voltar ao menu
         const backButton = document.createElement("button");
         backButton.innerText = "Voltar para o Menu";
-        backButton.className = "btn btn-success d-flex row m-auto";
+        backButton.className = "btn btn-success";
         backButton.onclick = function() {
             window.location.href = "./menu.html";
         };
-        resultMessage.appendChild(backButton);
+        modalButtonContainer.appendChild(backButton);
     } else {
-        resultMessage.innerText = "Tente novamente!";
-        
-        // Adiciona um botão para reiniciar o jogo
+        modalMessage.innerText = "Tente novamente!";
+
+        // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
         restartButton.innerText = "Reiniciar";
-        restartButton.className = "btn btn-danger d-flex row m-auto ";
+        restartButton.className = "btn btn-danger";
         restartButton.onclick = restartGame;
-        resultMessage.appendChild(restartButton);
+        modalButtonContainer.appendChild(restartButton);
     }
 
-    // Exibe a mensagem de resultado
-    document.getElementById("game-container").appendChild(resultMessage);
-    
-    // Desabilita os botões após a resposta
+    // Exibe o modal
+    modal.style.display = "flex";
+
+    // Desabilita os botões de opção após a resposta
     const optionsButtons = document.querySelectorAll(".option");
     optionsButtons.forEach(button => {
         button.disabled = true;
@@ -70,6 +86,7 @@ function checkAnswer(selectedIndex) {
 }
 
 // Função para reiniciar o jogo
+
 function restartGame() {
     // Limpa a mensagem de resultado
     const resultMessage = document.querySelector(".result-message");
@@ -88,6 +105,20 @@ function restartGame() {
     document.getElementById("score").innerText = "Pontuação: " + score;
     startGame();
 }
+
+// Função para fechar o modal quando clicar no "X"
+document.getElementById("closeModalBtn").onclick = function() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+};
+
+// Função para fechar o modal se o usuário clicar fora da área do conteúdo
+window.onclick = function(event) {
+    const modal = document.getElementById("resultModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
