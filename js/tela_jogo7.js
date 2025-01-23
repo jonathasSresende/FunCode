@@ -110,3 +110,25 @@ window.onclick = function(event) {
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
+
+
+
+
+  // Função para atualizar a contagem de moedas
+  function atualizarMoedas(novaQuantidade) {
+    document.getElementById('moeda-count').innerText = novaQuantidade;
+}
+
+// Exemplo de chamada para atualizar as moedas
+// Isso pode ser chamado após uma ação que incrementa as moedas
+function incrementarMoedas() {
+    // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
+    // Para este exemplo, vamos apenas incrementar um valor fixo
+    let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
+    let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
+    atualizarMoedas(novaQuantidade);
+}
+
+// Chame a função para incrementar as moedas quando necessário
+// Por exemplo, após uma ação do usuário ou uma resposta da API
+incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas

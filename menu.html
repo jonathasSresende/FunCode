@@ -15,36 +15,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navegacao">
-        <div class="container-fluid">
-            <img src="./assets/robo_nav.png" alt="robo_nav">
-          
-         
-            
+  <nav class="navbar navegacao">
+    <div class="container-fluid">
+        <img src="./assets/robo_nav.png" alt="robo_nav">
+
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
-            <img src="./assets/coracao.png" alt="robo_nav"  class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/coracao.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="coracao-count">0</span> <!-- Exibe a quantidade de corações -->
             </a>
         </div>
 
         <div class="coluna">
             <a class="navbar-brand imagem_nav" href="#">
-              <img src="./assets/moeda.png" alt="robo_nav"  class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/moeda.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="moeda-count">0</span> <!-- Exibe a quantidade de moedas -->
             </a>
         </div>
-
 
         <div class="coluna">        
             <a class="navbar-brand imagem_nav" href="#">
-              <img src="./assets/diamante.png" alt="robo_nav" class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/diamante.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="diamante-count">0</span> <!-- Exibe a quantidade de diamantes -->
             </a>
         </div>
-        
-        </div>
-      </nav>
+    </div>
+</nav>
 
    <!-- final da nav -->
 
@@ -173,6 +169,27 @@
           window.location.href = "index.html";
       }
   </script>
+
+<script>
+  // Função para atualizar a contagem de moedas
+  function atualizarMoedas(novaQuantidade) {
+      document.getElementById('moeda-count').innerText = novaQuantidade;
+  }
+
+  // Exemplo de chamada para atualizar as moedas
+  // Isso pode ser chamado após uma ação que incrementa as moedas
+  function incrementarMoedas() {
+      // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
+      // Para este exemplo, vamos apenas incrementar um valor fixo
+      let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
+      let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
+      atualizarMoedas(novaQuantidade);
+  }
+
+  // Chame a função para incrementar as moedas quando necessário
+  // Por exemplo, após uma ação do usuário ou uma resposta da API
+  incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas
+</script>
 
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
