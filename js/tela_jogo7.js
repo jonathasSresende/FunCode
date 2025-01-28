@@ -22,7 +22,7 @@ function startGame() {
 
 // Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 2; // O índice da resposta correta (Opção B)
+    const correctIndex = 1; // O índice da resposta correta (Opção B)
 
     // Lógica para abrir o modal com a resposta
     const modal = document.getElementById("resultModal");
@@ -112,6 +112,8 @@ window.onclick = function(event) {
 window.onload = startGame;
 
 
+
+//-----------------------------------------------------
 
 
   // Função para atualizar a contagem de moedas

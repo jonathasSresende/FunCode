@@ -36,7 +36,7 @@ function checkAnswer(selectedIndex) {
 
     if (selectedIndex === correctIndex) {
         score++;
-        modalMessage.innerText = `Você Acertou!
+        modalMessage.innerText = ` Você Acertou!
 EXPLICAÇÃO:
 Na programação, muitas vezes precisamos repetir uma ação várias vezes. Em vez de escrever o mesmo comando várias vezes, usamos algo chamado laço de repetição (ou loop). Ele faz a mesma coisa várias vezes automaticamente!
 O código para o robô dar 10 pulos seria assim:
@@ -119,6 +119,8 @@ window.onclick = function(event) {
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
 
+
+//-----------------------------------------------------
 
   // Função para atualizar a contagem de moedas
   function atualizarMoedas(novaQuantidade) {

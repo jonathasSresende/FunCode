@@ -1,9 +1,9 @@
 const API_URL = 'http://127.0.0.1:5000/users';
  
 const userForm = document.getElementById('userForm');
-
-
-
+ 
+ 
+ 
 // Fetch and display users
 async function fetchUsers() {
  
@@ -11,38 +11,39 @@ async function fetchUsers() {
   const response = await fetch(API_URL);
   // Trás os dados via API
   const users = await response.json();
-
+ 
   console.log(users)
 }
-
-
-
-// Add a new user
+ 
+ 
 userForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const user = {
-    nick_name: document.getElementById('nick_name').value,
-    senha: document.getElementById('senha').value,
-    idade: parseInt(document.getElementById('idade').value)
+      nick_name: document.getElementById('nick_name').value,
+      senha: document.getElementById('senha').value,
+      idade: parseInt(document.getElementById('idade').value)
   };
-
-  await fetch(API_URL, {
+ 
+  const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user)
   });
+ 
+  const data = await response.json();
+  console.log(data); // Exibe o usuário e a trilha criada no console
+ 
   fetchUsers();
   userForm.reset();
-
-  if (user) {
-    // Se o usuário for encontrado, cria a sessão e redireciona para o menu
-    sessionStorage.setItem('usuario', {
-      nickname: user.NICK_NAME,
-      idade: user.idade});  // Armazena na sessão local do navegador (sessionStorage)
-    window.location.href = "index.html";  // Redireciona para a página menu.html
-} else {
-    alert("Usuário e senha inválidos!");
-}
+ 
+  if (data.user_id) {
+      sessionStorage.setItem('usuario', JSON.stringify({
+          nickname: user.nick_name,
+          idade: user.idade,
+          trilha: data.trilha
+      }));
+      window.location.href = "index.html";
+  } else {
+      alert("Erro ao criar usuário!");
+  }
 });
-
-

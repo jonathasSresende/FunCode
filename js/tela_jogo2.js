@@ -124,6 +124,8 @@ window.onclick = function(event) {
 window.onload = startGame;
 
 
+//-----------------------------------------------------
+
 
   // Função para atualizar a contagem de moedas
   function atualizarMoedas(novaQuantidade) {

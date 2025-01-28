@@ -81,7 +81,7 @@ padding: 25px;
   }
   
   /* O conteúdo do modal */
-  .modal-content {
+  .bg-light {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -109,8 +109,14 @@ padding: 25px;
   }
   
 
+.loja{
+    height: 45em;
+    width: 100%;
+    display: flex;
+    margin: auto;
 
+}
 
-
-
-
+#question{
+    background-color: white;
+}

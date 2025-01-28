@@ -160,36 +160,108 @@
     </footer>
 
     <!-- Vai servir para verificar se a pessoal tem uma sessão aberta de autentificação -->
+    
+
     <script>
-      const usuarioNome = sessionStorage.getItem('usuario');
-      if (usuarioNome) {
-          document.getElementById('usuarioNome').textContent = usuarioNome;
+
+      const API_URL = 'http://127.0.0.1:5000'; // URL base da API, endereço da API
+  
+      // Verifica se o usuário está autenticado
+      const usuarioSessao = sessionStorage.getItem('usuario');
+
+      
+      
+
+      if (usuarioSessao) {
+          
+          const usuario = JSON.parse(usuarioSessao);
+          
+          
+          // Função principal para executar as operações
+          async function iniciar() {
+              try {
+                
+                  // Realizar POST para criar trilha e progresso
+                  const trilhaId = await criarTrilha(usuario.user_id); //O erro esta aqui
+                  console.log("tentou fazer")
+  
+                  // Realizar GET para buscar dados de trilha e vincular aos recursos
+                  const recursos = await buscarRecursos(trilhaId);
+  
+                  // Atualizar os elementos da página com os dados dos recursos
+                  atualizarElementosHTML(recursos);
+                  
+              } catch (error) {
+                  console.error('Erro ao inicializar:', error);
+              }
+          }
+  
+          iniciar(); // Inicia o processo após a verificação do usuário
       } else {
-          // Se não houver usuário na sessão, redireciona para login
-          window.location.href = "index.html";
+          // Redireciona para a página de login se o usuário não estiver autenticado
+          window.location.href = 'index.html';
       }
+  
+      // Função para criar trilha e progresso (POST)
+
+
+      //Corrigir o erro da passagem de ID
+      async function criarTrilha(usuarioId) {
+          try {
+            console.log("entrou dentro da criarTrilha",usuarioId)
+              const response = await fetch(`${API_URL}/trilhas`, {
+                  method: 'POST',
+                  headers: {
+'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({  user_id: usuarioId }),
+              });
+
+              
+              
+  
+              if (!response.ok) throw new Error('Erro ao criar trilha');
+              const data = await response.json();
+              console.log('Trilha criada com sucesso:', data);
+              console.log("chegamos ate aqui ")
+
+              return data.id_progresso; // Retorna o ID da trilha
+          } catch (error) {
+              console.error('Erro no POST /trilhas:', error);
+              throw error;
+          }
+      }
+  
+     
+
+
+
+
+
+      
+  
+      // Função para atualizar os elementos HTML com os dados dos recursos
+      function atualizarElementosHTML(recursos) {
+          let coracoes = 0;
+          let moedas = 0;
+          let diamantes = 0;
+  
+          // Soma os valores dos recursos
+          recursos.forEach(recurso => {
+              if (recurso.tipo === 'coração') coracoes += recurso.quantidade;
+              if (recurso.tipo === 'moeda') moedas += recurso.quantidade;
+              if (recurso.tipo === 'diamante') diamantes += recurso.quantidade;
+          });
+  
+          // Atualiza os elementos na página
+          document.getElementById('coracao-count').innerText = coracoes;
+          document.getElementById('moeda-count').innerText = moedas;
+          document.getElementById('diamante-count').innerText = diamantes;
+      }
+
+
   </script>
-
-<script>
-  // Função para atualizar a contagem de moedas
-  function atualizarMoedas(novaQuantidade) {
-      document.getElementById('moeda-count').innerText = novaQuantidade;
-  }
-
-  // Exemplo de chamada para atualizar as moedas
-  // Isso pode ser chamado após uma ação que incrementa as moedas
-  function incrementarMoedas() {
-      // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
-      // Para este exemplo, vamos apenas incrementar um valor fixo
-      let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
-      let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
-      atualizarMoedas(novaQuantidade);
-  }
-
-  // Chame a função para incrementar as moedas quando necessário
-  // Por exemplo, após uma ação do usuário ou uma resposta da API
-  incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas
-</script>
+  
 
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
