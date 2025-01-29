@@ -88,8 +88,11 @@ Como 6 é maior que 5, o Robô pode brincar e se divertir bastante!
 }
 
 // Função para reiniciar o jogo
-
 function restartGame() {
+    // Fecha o modal
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+
     // Limpa a mensagem de resultado
     const resultMessage = document.querySelector(".result-message");
     if (resultMessage) {
@@ -108,19 +111,8 @@ function restartGame() {
     startGame();
 }
 
-// Função para fechar o modal quando clicar no "X"
-document.getElementById("closeModalBtn").onclick = function() {
-    const modal = document.getElementById("resultModal");
-    modal.style.display = "none"; // Fecha o modal
-};
 
-// Função para fechar o modal se o usuário clicar fora da área do conteúdo
-window.onclick = function(event) {
-    const modal = document.getElementById("resultModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
@@ -128,23 +120,22 @@ window.onload = startGame;
 
 //-----------------------------------------------------
 
-
   // Função para atualizar a contagem de moedas
   function atualizarMoedas(novaQuantidade) {
-    document.getElementById('moeda-count').innerText = novaQuantidade;
-}
+      document.getElementById('moeda-count').innerText = novaQuantidade;
+  }
 
-// Exemplo de chamada para atualizar as moedas
-// Isso pode ser chamado após uma ação que incrementa as moedas
-function incrementarMoedas() {
-    // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
-    // Para este exemplo, vamos apenas incrementar um valor fixo
-    let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
-    let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
-    atualizarMoedas(novaQuantidade);
-}
+  // Exemplo de chamada para atualizar as moedas
+  // Isso pode ser chamado após uma ação que incrementa as moedas
+  function incrementarMoedas() {
+      // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
+      // Para este exemplo, vamos apenas incrementar um valor fixo
+      let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
+      let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
+      atualizarMoedas(novaQuantidade);
+  }
 
-// Chame a função para incrementar as moedas quando necessário
-// Por exemplo, após uma ação do usuário ou uma resposta da API
-incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas
+  // Chame a função para incrementar as moedas quando necessário
+  // Por exemplo, após uma ação do usuário ou uma resposta da API
+  incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas
 

@@ -36,6 +36,12 @@ padding: 25px;
     background-color: #69A5DB;
 }
 
+#iniciante{
+    height: 47em;
+    margin-top:2%;
+    background-color: #69A5DB;
+}
+
 #fundo_cadastro{
     height: 100%;
     margin-top:2%;
@@ -110,8 +116,8 @@ padding: 25px;
   
 
 .loja{
-    height: 45em;
-    width: 100%;
+    
+
     display: flex;
     margin: auto;
 

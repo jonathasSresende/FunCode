@@ -77,8 +77,11 @@ Por fim, damos as instruções para o robô andar um quadrado de cada vez até c
 }
 
 // Função para reiniciar o jogo
-
 function restartGame() {
+    // Fecha o modal
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+
     // Limpa a mensagem de resultado
     const resultMessage = document.querySelector(".result-message");
     if (resultMessage) {
@@ -97,19 +100,8 @@ function restartGame() {
     startGame();
 }
 
-// Função para fechar o modal quando clicar no "X"
-document.getElementById("closeModalBtn").onclick = function() {
-    const modal = document.getElementById("resultModal");
-    modal.style.display = "none"; // Fecha o modal
-};
 
-// Função para fechar o modal se o usuário clicar fora da área do conteúdo
-window.onclick = function(event) {
-    const modal = document.getElementById("resultModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+
 
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
