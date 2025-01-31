@@ -134,7 +134,6 @@ def get_user_trilha_recurso(id_usuario):
                 usuario.NICK_NAME,
                 usuario.IDADE,
                 trilha.ID AS trilha_id,
-                trilha.DATA_INICIO,
                 recurso.ID AS recurso_id,
                 recurso.CORACAO,
                 recurso.DIAMANTE,
