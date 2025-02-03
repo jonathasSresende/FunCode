@@ -19,36 +19,32 @@
 <body>
 
 
-    <nav class="navbar navegacao">
-        <div class="container-fluid">
-            <img src="./assets/robo_nav.png" alt="robo_nav">
-          
-         
-            
+  <nav class="navbar navegacao">
+    <div class="container-fluid">
+        <img src="./assets/robo_nav.png" alt="robo_nav">
+
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
-            <img src="./assets/coracao.png" alt="robo_nav"  class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/coracao.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="coracao-count">0</span> <!-- Exibe a quantidade de corações -->
             </a>
         </div>
 
         <div class="coluna">
             <a class="navbar-brand imagem_nav" href="#">
-              <img src="./assets/moeda.png" alt="robo_nav"  class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/moeda.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="moeda-count">0</span> <!-- Exibe a quantidade de moedas -->
             </a>
         </div>
-
 
         <div class="coluna">        
             <a class="navbar-brand imagem_nav" href="#">
-              <img src="./assets/diamante.png" alt="robo_nav" class="d-inline-block align-text-top">
-              ?
+                <img src="./assets/diamante.png" alt="robo_nav" class="d-inline-block align-text-top">
+                <span id="diamante-count">0</span> <!-- Exibe a quantidade de diamantes -->
             </a>
         </div>
-        
-        </div>
-      </nav>
+    </div>
+</nav>
 
    <!-- final da nav -->
  
@@ -188,5 +184,6 @@
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="js/loja.js"></script>
 </body>
 </html>
