@@ -1,3 +1,4 @@
+
 // Definindo a pergunta e as opções
 const question = "Quantos blocos o robô precisa andar em linha reta para chegar ao troféu?";
 const options = [
@@ -8,6 +9,37 @@ const options = [
 ];
 
 let score = 0; // Inicializa a pontuação
+
+// URL da API de recursos
+const RECURSOS_API_URL = 'http://127.0.0.1:5000/recursos/';
+
+// Obtém os dados do usuário do sessionStorage
+const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
+let trilhaId = null;
+
+if (usuarioData && usuarioData.user_id) {
+    const id_usuario = usuarioData.user_id;
+
+    // Faz o fetch para obter os dados de trilha e recurso do usuário
+    fetch(`http://127.0.0.1:5000/user_trilha_recurso/${id_usuario}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const trilhaRecurso = data[0];
+                trilhaId = trilhaRecurso.trilha_id;
+
+                // Atualiza os valores na interface
+                document.querySelector("#coracao-count").textContent = trilhaRecurso.CORACAO;
+                document.querySelector("#moeda-count").textContent = trilhaRecurso.MOEDA;
+                document.querySelector("#diamante-count").textContent = trilhaRecurso.DIAMANTE;
+            } else {
+                console.error("Nenhum dado encontrado para o usuário.");
+            }
+        })
+        .catch(error => console.error("Erro ao obter trilha e recurso:", error));
+} else {
+    console.error("ID do usuário não encontrado no sessionStorage.");
+}
 
 // Função para iniciar o jogo
 function startGame() {
@@ -32,6 +64,14 @@ function checkAnswer(selectedIndex) {
 
     if (selectedIndex === correctIndex) {
         score++;
+
+        // Atualiza os recursos do usuário ao acertar
+        if (trilhaId) {
+            atualizarRecursoAoAcertar(trilhaId);
+        } else {
+            console.error("Trilha ID não encontrado.");
+        }
+
         modalMessage.innerText = `Você Acertou!
 EXPLICAÇÃO:
 Para fazer qualquer coisa, tanto na vida quanto na programação, precisamos seguir passos ou instruções. Na programação, essas instruções são como comandos que escrevemos para o computador entender. Aqui está o exemplo:
@@ -44,8 +84,7 @@ Tro = Quadrado 4
 Robo CHEGOU!!!!  
 Primeiro, damos nomes para o robô e o troféu. Esses nomes são chamados de variáveis. Depois, falamos onde cada um começa (o robô no quadrado 0 e o troféu no quadrado 4).
 Por fim, damos as instruções para o robô andar um quadrado de cada vez até chegar ao troféu. E pronto! Ele chegou! 
-
-        `;
+`;
 
         // Botão para voltar ao menu
         const backButton = document.createElement("button");
@@ -76,9 +115,34 @@ Por fim, damos as instruções para o robô andar um quadrado de cada vez até c
     });
 }
 
+// Função para atualizar recursos ao acertar a questão
+function atualizarRecursoAoAcertar(trilhaId) {
+    fetch(RECURSOS_API_URL + trilhaId, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            MOEDA: 10 // Adiciona 10 moedas ao usuário
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Recurso atualizado com sucesso:", data);
+        
+        // Atualiza a interface após a atualização do recurso
+        if (data.MOEDA !== undefined) {
+            atualizarMoedas(data.MOEDA);
+        }
+    })
+    .catch(error => console.error("Erro ao atualizar recurso:", error));
+}
+
+// Função para atualizar a contagem de moedas na interface
+function atualizarMoedas(novaQuantidade) {
+    document.getElementById('moeda-count').innerText = novaQuantidade;
+}
+
 // Função para reiniciar o jogo
 function restartGame() {
-    // Fecha o modal
     const modal = document.getElementById("resultModal");
     modal.style.display = "none"; // Fecha o modal
 
@@ -100,31 +164,5 @@ function restartGame() {
     startGame();
 }
 
-
-
-
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
-
-
-//-----------------------------------------------------
-
-  // Função para atualizar a contagem de moedas
-  function atualizarMoedas(novaQuantidade) {
-      document.getElementById('moeda-count').innerText = novaQuantidade;
-  }
-
-  // Exemplo de chamada para atualizar as moedas
-  // Isso pode ser chamado após uma ação que incrementa as moedas
-  function incrementarMoedas() {
-      // Aqui você pode fazer uma chamada para a API para obter a nova quantidade de moedas
-      // Para este exemplo, vamos apenas incrementar um valor fixo
-      let quantidadeAtual = parseInt(document.getElementById('moeda-count').innerText);
-      let novaQuantidade = quantidadeAtual + 10; // Incrementa 10 moedas
-      atualizarMoedas(novaQuantidade);
-  }
-
-  // Chame a função para incrementar as moedas quando necessário
-  // Por exemplo, após uma ação do usuário ou uma resposta da API
-  incrementarMoedas(); // Chame esta função quando você quiser incrementar as moedas
-
