@@ -21,7 +21,7 @@
 
   <nav class="navbar navegacao">
     <div class="container-fluid">
-        <img src="./assets/robo_nav.png" alt="robo_nav">
+      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -161,8 +161,39 @@
 </footer>
 
   
+<script>// URL da API de recursos
+  const RECURSOS_API_URL = 'http://127.0.0.1:5000/recursos/';
+  
+  // Obtém os dados do usuário do sessionStorage
+  const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
+  let trilhaId = null;
+  
+  if (usuarioData && usuarioData.user_id) {
+      const id_usuario = usuarioData.user_id;
+  
+      // Faz o fetch para obter os dados de trilha e recurso do usuário
+      fetch(`http://127.0.0.1:5000/user_trilha_recurso/${id_usuario}`)
+          .then(response => response.json())
+          .then(data => {
+              if (data.length > 0) {
+                  const trilhaRecurso = data[0];
+                  trilhaId = trilhaRecurso.trilha_id;
+  
+                  // Atualiza os valores na interface
+                  document.querySelector("#coracao-count").textContent = trilhaRecurso.CORACAO;
+                  document.querySelector("#moeda-count").textContent = trilhaRecurso.MOEDA;
+                  document.querySelector("#diamante-count").textContent = trilhaRecurso.DIAMANTE;
+              } else {
+                  console.error("Nenhum dado encontrado para o usuário.");
+              }
+          })
+          .catch(error => console.error("Erro ao obter trilha e recurso:", error));
+  } else {
+      console.error("ID do usuário não encontrado no sessionStorage.");
+  }
+  </script>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-      <script src="js/login.js"></script>
 </body>
 </html>

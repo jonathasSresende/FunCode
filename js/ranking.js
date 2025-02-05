@@ -72,3 +72,39 @@ function loadRanking() {
  
 // Carrega o ranking quando a página é carregada
 window.onload = loadRanking;
+
+
+
+
+
+
+// URL da API de recursos
+const RECURSOS_API_URL = 'http://127.0.0.1:5000/recursos/';
+
+// Obtém os dados do usuário do sessionStorage
+const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
+let trilhaId = null;
+
+if (usuarioData && usuarioData.user_id) {
+    const id_usuario = usuarioData.user_id;
+
+    // Faz o fetch para obter os dados de trilha e recurso do usuário
+    fetch(`http://127.0.0.1:5000/user_trilha_recurso/${id_usuario}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const trilhaRecurso = data[0];
+                trilhaId = trilhaRecurso.trilha_id;
+
+                // Atualiza os valores na interface
+                document.querySelector("#coracao-count").textContent = trilhaRecurso.CORACAO;
+                document.querySelector("#moeda-count").textContent = trilhaRecurso.MOEDA;
+                document.querySelector("#diamante-count").textContent = trilhaRecurso.DIAMANTE;
+            } else {
+                console.error("Nenhum dado encontrado para o usuário.");
+            }
+        })
+        .catch(error => console.error("Erro ao obter trilha e recurso:", error));
+} else {
+    console.error("ID do usuário não encontrado no sessionStorage.");
+}

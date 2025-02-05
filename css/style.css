@@ -30,3 +30,20 @@ body{
     
 }
 .fixed-bottom{background-color: #69A5DB;}
+
+
+/*Jhow*/
+.fase-bloqueada {
+    opacity: 0.5; /* Aplica a opacidade */
+    pointer-events: none; /* Impede cliques na fase */
+  }
+  
+  .fase-liberada {
+    opacity: 1; /* A fase liberada tem opacidade normal */
+    pointer-events: auto; /* Permite clicar na fase */
+  }
+  
+.btn_fase{
+    background-color: transparent;
+    border: none;
+}

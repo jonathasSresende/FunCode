@@ -19,7 +19,7 @@
   
   <nav class="navbar navegacao">
     <div class="container-fluid">
-        <img src="./assets/robo_nav.png" alt="robo_nav">
+      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -47,20 +47,28 @@
   <div class="container py-5 text-center">
     
     <div id="game-container" class=" border p-4 rounded" style="background-color: #69A5DB;">
-      <h3 id="question" class="container col-12 mb-4 rounded-5"></h3>
+      <h3 id="question" class="container col-12 mb-4 rounded-5">O robo adora brincar de esconde-esconde. 
+        Ele tem uma regra especial para decidir se ele deve contar até 10 ou até 20 antes de começar a procurar. 
+        <br>
+        A regra é a seguinte:
+      </br>
+        Se o número de jogadores for menor que 5, Robo conta até 10.
+        Senao Robo conta até 20.
+      </br>
+        Se o número de jogadores for 4, até que número Robo vai contar?</h3>
       <div id="options" class="row">
         <div class="mb-3"><img class="col-12" src="./assets/game2.png" alt=""></div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Opção A</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">5 segundos</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Opção B</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">10 segundos</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Opção C</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">15 segundos</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Opção D</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">20 segundos</button>
         </div>
       </div>
       

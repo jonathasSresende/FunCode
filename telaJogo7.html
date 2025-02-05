@@ -19,7 +19,7 @@
   
   <nav class="navbar navegacao">
     <div class="container-fluid">
-        <img src="./assets/robo_nav.png" alt="robo_nav">
+      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -47,20 +47,21 @@
   <div class="container py-5 text-center">
     
     <div id="game-container" class=" border p-4 rounded" style="background-color: #69A5DB;">
-      <h3 id="question" class="container col-12 mb-4 rounded-5"></h3>
+      <h3 id="question" class="container col-12 mb-4 rounded-5">O robô que você programou está tentando acender uma luz, mas a luz não acende. 
+        Isso significa que algo está errado no código. O que você deve fazer para descobrir o problema?</h3>
       <div id="options" class="row">
         <div class="mb-3"><img class="col-12" src="./assets/game7.png" alt=""></div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Opção A</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Ignorar o robô e brincar com outra coisa.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Opção B</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Verificar o código do robô para ver se ele escreveu (acender) corretamente.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Opção C</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Desligar o robô e deixá-lo de lado.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Opção D</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Pedir para o robô tentar acender a luz de novo.</button>
         </div>
       </div>
       

@@ -7,31 +7,6 @@ app = Flask(__name__)
 # Permite que navegadores realizem requisições para o back-end Flask mesmo se estiverem hospedados em domínios ou portas diferentes.
 CORS(app)
  
-# # Criar usuário e sua trilha
-# @app.route('/users', methods=['POST'])
-# def create_user():
-#     data = request.json
-#     conn = get_connection()
-#     cursor = conn.cursor()
- 
-#     # Criar usuário
-#     cursor.execute("INSERT INTO usuario (nick_name, senha, idade) VALUES (%s, %s, %s)",
-#                    (data['nick_name'], data['senha'], data['idade']))
-#     user_id = cursor.lastrowid  # Obtém o ID do novo usuário
-#     conn.commit()
- 
-#     # Criar trilha para o novo usuário chamando a procedure
-#     cursor.callproc("InserirOuRetornarTrilha", [user_id])
-#     result = []
-#     for res in cursor.stored_results():
-#         result = res.fetchall()
- 
-#     conn.commit()
-#     cursor.close()
-#     conn.close()
- 
-#     return jsonify({"message": "User and trail created successfully", "user_id": user_id, "trilha": result}), 201
-
 @app.route('/criar_usuario_e_recurso', methods=['POST'])
 def criar_usuario_e_recurso():
     data = request.json
@@ -97,29 +72,72 @@ def get_users():
  
     return jsonify(users), 200
 
-# @app.route('/criar recurso', methods=['POST'])
-# def create_recurso():
-#     data = request.json
-#     conn = get_connection()
-#     cursor = conn.cursor()
- 
-#     # Criar usuário
-#     cursor.execute("INSERT INTO recurso (coracao, moeda, diamante) VALUES (%s, %s, %s)",
-#                    (data['coracao'], data['moeda'], data['diamante']))
-#     id_recurso = cursor.lastrowid  # Obtém o ID do novo usuário
-#     conn.commit()
- 
-#     # Criar trilha para o novo usuário chamando a procedure
-#     cursor.callproc("InserirOuRetornarTrilha", [user_id])
-#     result = []
-#     for res in cursor.stored_results():
-#         result = res.fetchall()
- 
-#     conn.commit()
-#     cursor.close()
-#     conn.close()
- 
-#     return jsonify({"message": "User and trail created successfully", "user_id": user_id, "trilha": result}), 201
+@app.route('/add_recurso', methods=['POST'])
+def add_recurso():
+    try:
+        data = request.json  # Recebe os dados do corpo da requisição
+        trilha_id = data.get('trilha_id')  # Agora estamos usando trilha_id, não id_usuario
+        coracao = data.get('coracao', 0)  # Padrão 0 se não for enviado
+        moeda = data.get('moeda', 20)
+        diamante = data.get('diamante', 10)
+
+        if not trilha_id:
+            return jsonify({"error": "ID da trilha é obrigatório"}), 400
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Verificar se a trilha existe para o ID fornecido
+        cursor.execute("SELECT ID FROM trilha WHERE ID = %s", (trilha_id,))
+        trilha = cursor.fetchone()
+
+        if not trilha:
+            return jsonify({"error": "Trilha não encontrada"}), 404
+
+        # Inserir os recursos na tabela `recurso`
+        query = """
+            INSERT INTO recurso (ID_TRILHA, CORACAO, MOEDA, DIAMANTE)
+            VALUES (%s, %s, %s, %s)
+        """
+        cursor.execute(query, (trilha_id, coracao, moeda, diamante))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "Recurso adicionado com sucesso"}), 201
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# 
+
+@app.route('/recursos/<int:trilha_id>', methods=['PUT'])
+def atualizar_recursos(trilha_id):
+    try:
+        # Conectar ao banco de dados
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Chamar a procedure AtualizarRecursoFase passando o ID da trilha
+        cursor.callproc('AtualizarRecursoFase', [trilha_id])
+
+        # Commit da transação e fechar a conexão
+        conn.commit()
+
+        # Verificar se houve erro ou a atualização foi bem-sucedida
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Trilha não encontrada ou erro na atualização"}), 404
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "Recursos atualizados com sucesso!"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/user_trilha_recurso/<int:id_usuario>', methods=['GET'])
 def get_user_trilha_recurso(id_usuario):
@@ -175,105 +193,6 @@ def get_recurso():
  
     return jsonify(recurso), 200
 
-# # Atualizar usuário
-# @app.route('/users/<int:id>', methods=['PUT'])
-# def update_user(id):
-#     data = request.json
-#     conn = get_connection()
-#     cursor = conn.cursor()
- 
-#     cursor.execute("UPDATE users SET nick_name=%s, senha=%s, idade=%s WHERE id=%s",
-#                    (data['nick_name'], data['senha'], data['idade'], id))
-#     conn.commit()
- 
-#     # Fechar o cursor e a conexão
-#     cursor.close()
-#     conn.close()
- 
-#     return jsonify({"message": "User updated successfully"}), 200
- 
-# # Criar ou retornar trilha do usuário
-# @app.route('/trilha/<int:id_usuario>', methods=['GET'])
-# def get_or_create_trilha(id_usuario):
-#     conn = get_connection()
-#     cursor = conn.cursor(dictionary=True)
-#     cursor.callproc("InserirOuRetornarTrilha", [id_usuario])
-#     result = []
-#     for res in cursor.stored_results():
-#         result = res.fetchall()
-#     cursor.close()
-#     conn.close()
-#     return jsonify(result), 200
-
-# @app.route('/trilha/<int:id_usuario>', methods=['GET'])
-# def get_trilha(id_usuario):
-#     try:
-#         conn = get_connection()
-#         cursor = conn.cursor()
-
-#         # Buscar a trilha do usuário
-#         cursor.execute("SELECT ID FROM TRILHA WHERE ID_USUARIO = %s", (id_usuario,))
-#         trilha = cursor.fetchone()
-
-#         cursor.close()
-#         conn.close()
-
-#         if trilha:
-#             return jsonify({
-#                 "message": "Trilha encontrada",
-#                 "id_trilha": trilha[0]  # Retorna o ID da trilha
-#             }), 200
-#         else:
-#             return jsonify({"message": "Trilha não encontrada para este usuário"}), 404
-
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
-
-# @app.route('/criar_recurso', methods=['POST'])
-# def criar_recurso():
-#     data = request.json
-#     id_trilha = data['id_trilha']  # ID da trilha vinculada ao usuário
-
-#     try:
-#         conn = get_connection()
-#         cursor = conn.cursor()
-
-#         # Chamando a função AtualizarRecurso para inserir um novo recurso
-#         cursor.execute("SELECT AtualizarRecurso(%s, %s, %s, %s)", (id_trilha, 3, 0, 0))
-#         recurso_id = cursor.fetchone()[0]  # Obtém o ID do recurso criado
-
-#         conn.commit()
-#         cursor.close()
-#         conn.close()
-
-#         return jsonify({
-#             "message": "Recurso criado com sucesso",
-#             "recurso_id": recurso_id,
-#             "coracao": 3,  # Valor inicial de corações
-#             "diamante": 0,
-#             "moeda": 0,
-#             "id_trilha": id_trilha
-#         }), 201
-
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-    
-
-    
-#usuario Ta em cima
-#-----------------------------------------------------------------------------------------
- 
-    # # Vai usar o json cuja key são os IDs
-    # cursor.execute("INSERT INTO modelo (id, modelo) VALUES (%s, %s)",
-    #                (data['id'], data['modelo']))
-    # conn.commit()
- 
-    # # Fechar o cursor e a conexão
-    # cursor.close()
-    # conn.close()
- 
-    # return jsonify({"message": "User created successfully"}), 201
  
  
  

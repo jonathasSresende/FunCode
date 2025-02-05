@@ -19,7 +19,7 @@
   
   <nav class="navbar navegacao">
     <div class="container-fluid">
-        <img src="./assets/robo_nav.png" alt="robo_nav">
+      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -47,20 +47,22 @@
   <div class="container py-5 text-center">
     
     <div id="game-container" class=" border p-4 rounded" style="background-color: #69A5DB;">
-      <h3 id="question" class="container col-12 mb-4 rounded-5"></h3>
+      <h3 id="question" class="container col-12 mb-4 rounded-5">Você está ajudando um robô a decidir se ele pode brincar no parque. Para isso, você precisa comparar a idade do robô com a idade mínima para brincar, que é 5 anos.
+
+        Se o robô tem 6 anos, ele pode brincar?</h3>
       <div id="options" class="row">
         <div class="mb-3"><img class="col-12" src="./assets/game6.png" alt=""></div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Opção A</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Sim, porque ele é mais velho que 5 anos.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Opção B</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Não, porque ele é mais novo que 5 anos.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Opção C</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Sim, porque ele tem exatamente 5 anos.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Opção D</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Não, porque ele não pode brincar.</button>
         </div>
       </div>
       

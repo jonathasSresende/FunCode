@@ -19,7 +19,7 @@
   
   <nav class="navbar navegacao">
     <div class="container-fluid">
-        <img src="./assets/robo_nav.png" alt="robo_nav">
+      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -47,20 +47,29 @@
   <div class="container py-5 text-center">
     
     <div id="game-container" class=" border p-4 rounded" style="background-color: #69A5DB;">
-      <h3 id="question" class="container col-12 mb-4 rounded-5"></h3>
+      <h3 id="question" class="container col-12 mb-4 rounded-5">Um robô quer ir até a Lua. Para isso,
+         ele precisa dar pulos nos meteoros.
+         <br>
+         <br>
+         Ele pode pular um meteoro por vez,
+         e ele precisa dar 10 pulos para chegar à Lua.
+      <br>
+      
+        Pergunta:
+        Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 10 pulos?</h3>
       <div id="options" class="row">
         <div class="mb-3"><img class="col-12" src="./assets/game3.png" alt=""></div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Opção A</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(0)">Robô dá 10 pulos de uma vez só e chega à Lua.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Opção B</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(1)">Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Opção C</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(2)">Robô dá 1 pulo e depois para. Ele não chega à Lua.</button>
         </div>
         <div class="col-md-6 mb-3">
-          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Opção D</button>
+          <button class="btn btn-primary btn-block w-100 option" onclick="checkAnswer(3)">Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 10 pulos.</button>
         </div>
       </div>
       
