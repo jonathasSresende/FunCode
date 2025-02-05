@@ -1,3 +1,7 @@
+// URL da API de remoção de corações
+const REMOVER_CORACAO_API_URL = 'http://127.0.0.1:5000/remover_coracao/';
+
+
 
 // Definindo a pergunta e as opções
 const question = "Quantos blocos o robô precisa andar em linha reta para chegar ao troféu?";
@@ -44,6 +48,29 @@ if (usuarioData && usuarioData.user_id) {
     console.error("ID do usuário não encontrado no sessionStorage.");
 }
 
+// Função para remover um coração quando o usuário errar a resposta
+function removerCoracao(trilhaId) {
+    fetch(REMOVER_CORACAO_API_URL + trilhaId, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Coração removido com sucesso:", data);
+
+        // Atualiza a interface com a nova quantidade de corações
+        if (data.CORACAO !== undefined) {
+            atualizarCoracoes(data.CORACAO);
+        }
+    })
+    .catch(error => console.error("Erro ao remover coração:", error));
+}
+
+// Função para atualizar a contagem de corações na interface
+function atualizarCoracoes(novaQuantidade) {
+    document.getElementById('coracao-count').innerText = novaQuantidade;
+}
+
 //Samuel    ^^^^^^^^^^^^
 
 
@@ -56,7 +83,6 @@ function startGame() {
     });
 }
 
-// Função para verificar a resposta
 function checkAnswer(selectedIndex) {
     const correctIndex = 1; // O índice da resposta correta (Opção B)
 
@@ -91,9 +117,10 @@ Robo CHEGOU!!!!
 Primeiro, damos nomes para o robô e o troféu. Esses nomes são chamados de variáveis. Depois, falamos onde cada um começa (o robô no quadrado 0 e o troféu no quadrado 4).
 Por fim, damos as instruções para o robô andar um quadrado de cada vez até chegar ao troféu. E pronto! Ele chegou! 
 `;
+
         // Atualizar a fase do usuário no sessionStorage
         const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
-        usuarioData.fase_concluida = 2; // Avançar para a fase 2 após completar a primeira
+        usuarioData.fase_concluida = 2; // Avança para a proxima fase após completar a atual
         sessionStorage.setItem('usuario', JSON.stringify(usuarioData));
 
         // Botão para voltar ao menu
@@ -106,6 +133,13 @@ Por fim, damos as instruções para o robô andar um quadrado de cada vez até c
         modalButtonContainer.appendChild(backButton);
     } else {
         modalMessage.innerText = "Tente novamente!";
+
+        // Remove um coração ao errar a resposta
+        if (trilhaId) {
+            removerCoracao(trilhaId);
+        } else {
+            console.error("Trilha ID não encontrado.");
+        }
 
         // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
