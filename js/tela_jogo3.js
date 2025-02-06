@@ -1,18 +1,30 @@
 
+// URL da API de remoção de corações
+const REMOVER_CORACAO_API_URL = 'http://127.0.0.1:5000/remover_coracao/';
+
+
+
 // Definindo a pergunta e as opções
 const question = `Um robô quer ir até a Lua. Para isso, ele precisa dar pulos nos meteoros. Ele pode pular um meteoro por vez, e ele precisa dar 10 pulos para chegar à Lua.
 
 Pergunta:
 Qual das opções abaixo descreve a melhor maneira de fazer o robô dar 10 pulos?
 `;
+
+
 const options = [
+
     "Robô dá 10 pulos de uma vez só e chega à Lua.", // Opção A
     "Robô dá 1 pulo e depois volta para o início, repetindo isso até que ele se canse.",  // Opção B 
     "Robô dá 1 pulo e depois para. Ele não chega à Lua.", // Opção C
     "Robô dá 1 pulo, depois dá mais 1 pulo, e assim por diante, até dar 10 pulos."   // Opção D (correta)
 ];
 
+
 let score = 0; // Inicializa a pontuação
+
+
+//Samuel
 
 // URL da API de recursos
 const RECURSOS_API_URL = 'http://127.0.0.1:5000/recursos/';
@@ -45,6 +57,32 @@ if (usuarioData && usuarioData.user_id) {
     console.error("ID do usuário não encontrado no sessionStorage.");
 }
 
+// Função para remover um coração quando o usuário errar a resposta
+function removerCoracao(trilhaId) {
+    fetch(REMOVER_CORACAO_API_URL + trilhaId, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Coração removido com sucesso:", data);
+
+        // Atualiza a interface com a nova quantidade de corações
+        if (data.CORACAO !== undefined) {
+            atualizarCoracoes(data.CORACAO);
+        }
+    })
+    .catch(error => console.error("Erro ao remover coração:", error));
+}
+
+// Função para atualizar a contagem de corações na interface
+function atualizarCoracoes(novaQuantidade) {
+    document.getElementById('coracao-count').innerText = novaQuantidade;
+}
+
+//Samuel    ^^^^^^^^^^^^
+
+
 // Função para iniciar o jogo
 function startGame() {
     document.getElementById("question").innerText = question;
@@ -54,9 +92,8 @@ function startGame() {
     });
 }
 
-// Função para verificar a resposta
 function checkAnswer(selectedIndex) {
-    const correctIndex = 1; // O índice da resposta correta (Opção B)
+    const correctIndex = 3; // O índice da resposta correta (Opção D)
 
     // Lógica para abrir o modal com a resposta
     const modal = document.getElementById("resultModal");
@@ -77,6 +114,7 @@ function checkAnswer(selectedIndex) {
         }
 
         modalMessage.innerText = ` Você Acertou!
+
 EXPLICAÇÃO:
 Na programação, muitas vezes precisamos repetir uma ação várias vezes. Em vez de escrever o mesmo comando várias vezes, usamos algo chamado laço de repetição (ou loop). Ele faz a mesma coisa várias vezes automaticamente!
 O código para o robô dar 10 pulos seria assim:
@@ -91,9 +129,9 @@ Enquanto o robô não tiver pulado 10 meteoros ele não irá para de pular.A cad
 Usar laços de repetição é uma maneira mais rápida e inteligente de repetir coisas. Muito melhor do que escrever tudo várias vezes, não é?
 
         `;
-          // Atualizar a fase do usuário no sessionStorage
+        // Atualizar a fase do usuário no sessionStorage
         const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
-        usuarioData.fase_concluida = 4; // Avançar para a fase 2 após completar a primeira
+        usuarioData.fase_concluida = 4; // Avança para a proxima fase após completar a atual
         sessionStorage.setItem('usuario', JSON.stringify(usuarioData));
 
         // Botão para voltar ao menu
@@ -106,6 +144,13 @@ Usar laços de repetição é uma maneira mais rápida e inteligente de repetir 
         modalButtonContainer.appendChild(backButton);
     } else {
         modalMessage.innerText = "Tente novamente!";
+
+        // Remove um coração ao errar a resposta
+        if (trilhaId) {
+            removerCoracao(trilhaId);
+        } else {
+            console.error("Trilha ID não encontrado.");
+        }
 
         // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
@@ -124,6 +169,38 @@ Usar laços de repetição é uma maneira mais rápida e inteligente de repetir 
         button.disabled = true;
     });
 }
+
+
+
+// Função para reiniciar o jogo
+function restartGame() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+
+    // Limpa a mensagem de resultado
+    const resultMessage = document.querySelector(".result-message");
+    if (resultMessage) {
+        resultMessage.remove();
+    }
+
+    // Habilita os botões novamente
+    const optionsButtons = document.querySelectorAll(".option");
+    optionsButtons.forEach(button => {
+        button.disabled = false;
+    });
+
+    // Reinicia a pontuação e a pergunta
+    score = 0;
+    document.getElementById("score").innerText = "Pontuação: " + score;
+    startGame();
+}
+
+
+
+
+
+
+//samuel
 
 // Função para atualizar recursos ao acertar a questão
 function atualizarRecursoAoAcertar(trilhaId) {
@@ -150,29 +227,5 @@ function atualizarRecursoAoAcertar(trilhaId) {
 function atualizarMoedas(novaQuantidade) {
     document.getElementById('moeda-count').innerText = novaQuantidade;
 }
-
-// Função para reiniciar o jogo
-function restartGame() {
-    const modal = document.getElementById("resultModal");
-    modal.style.display = "none"; // Fecha o modal
-
-    // Limpa a mensagem de resultado
-    const resultMessage = document.querySelector(".result-message");
-    if (resultMessage) {
-        resultMessage.remove();
-    }
-
-    // Habilita os botões novamente
-    const optionsButtons = document.querySelectorAll(".option");
-    optionsButtons.forEach(button => {
-        button.disabled = false;
-    });
-
-    // Reinicia a pontuação e a pergunta
-    score = 0;
-    document.getElementById("score").innerText = "Pontuação: " + score;
-    startGame();
-}
-
 // Inicia o jogo ao carregar a página
 window.onload = startGame;

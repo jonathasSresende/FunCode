@@ -193,7 +193,28 @@ def get_recurso():
  
     return jsonify(recurso), 200
 
- 
+@app.route('/remover_coracao/<int:trilha_id>', methods=['PUT'])
+def remover_coracao(trilha_id):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        # Chama a procedure para remover um coração
+        cursor.callproc('RemoverCoracao', [trilha_id])
+        conn.commit()
+        
+        # Busca o novo valor de corações
+        cursor.execute("SELECT CORACAO FROM RECURSO WHERE ID_TRILHA = %s", (trilha_id,))
+        coracao_atual = cursor.fetchone()
+        
+        cursor.close()
+        conn.close()
+        
+        return jsonify({"Mensagem": "Coração removido com sucesso!", "CORACAO": coracao_atual[0] if coracao_atual else 0})
+    
+    except mysql.connector.Error as err:
+        return jsonify({"Erro": "Erro ao remover coração", "Detalhes": str(err)})
+
  
  
 if __name__ == '__main__':

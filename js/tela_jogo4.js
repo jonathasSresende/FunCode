@@ -1,4 +1,9 @@
 
+// URL da API de remoção de corações
+const REMOVER_CORACAO_API_URL = 'http://127.0.0.1:5000/remover_coracao/';
+
+
+
 // Definindo a pergunta e as opções
 const question = `Imagine que você tem um robô muito inteligente! Esse robô adora fazer contas. Sempre que você dá um número para ele, ele pega esse número e soma com o dobro desse número.
 
@@ -8,6 +13,8 @@ Primeiro, ele calcula o dobro de 3, que é 6.
 Depois, ele soma 3 + 6, que dá 9.
 Agora, se você der os números 5, 2 e 10 para o robô, quais números ele vai devolver?
 ` ;
+
+
 const options = [
     "10, 4, 20", // Opção A
     "25, 4, 100",  // Opção B 
@@ -15,7 +22,11 @@ const options = [
     "12, 10, 30"   // Opção D
 ];
 
+
 let score = 0; // Inicializa a pontuação
+
+
+//Samuel
 
 // URL da API de recursos
 const RECURSOS_API_URL = 'http://127.0.0.1:5000/recursos/';
@@ -48,6 +59,32 @@ if (usuarioData && usuarioData.user_id) {
     console.error("ID do usuário não encontrado no sessionStorage.");
 }
 
+// Função para remover um coração quando o usuário errar a resposta
+function removerCoracao(trilhaId) {
+    fetch(REMOVER_CORACAO_API_URL + trilhaId, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Coração removido com sucesso:", data);
+
+        // Atualiza a interface com a nova quantidade de corações
+        if (data.CORACAO !== undefined) {
+            atualizarCoracoes(data.CORACAO);
+        }
+    })
+    .catch(error => console.error("Erro ao remover coração:", error));
+}
+
+// Função para atualizar a contagem de corações na interface
+function atualizarCoracoes(novaQuantidade) {
+    document.getElementById('coracao-count').innerText = novaQuantidade;
+}
+
+//Samuel    ^^^^^^^^^^^^
+
+
 // Função para iniciar o jogo
 function startGame() {
     document.getElementById("question").innerText = question;
@@ -57,7 +94,6 @@ function startGame() {
     });
 }
 
-// Função para verificar a resposta
 function checkAnswer(selectedIndex) {
     const correctIndex = 2; // O índice da resposta correta (Opção C)
 
@@ -100,13 +136,14 @@ Numero_do_Robo = 10
 Dobro= 0
 Resultado = 0
 Dobro = Numero_do_Robo x 2
+Resultado = Dobro + Numero_do_Robo
+Resultado é 30
         `;
-        
         // Atualizar a fase do usuário no sessionStorage
         const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
-        usuarioData.fase_concluida = 5; // Avançar para a fase 2 após completar a primeira
+        usuarioData.fase_concluida = 5; // Avança para a proxima fase após completar a atual
         sessionStorage.setItem('usuario', JSON.stringify(usuarioData));
-        
+
         // Botão para voltar ao menu
         const backButton = document.createElement("button");
         backButton.innerText = "Voltar para o Menu";
@@ -117,6 +154,13 @@ Dobro = Numero_do_Robo x 2
         modalButtonContainer.appendChild(backButton);
     } else {
         modalMessage.innerText = "Tente novamente!";
+
+        // Remove um coração ao errar a resposta
+        if (trilhaId) {
+            removerCoracao(trilhaId);
+        } else {
+            console.error("Trilha ID não encontrado.");
+        }
 
         // Botão para reiniciar o jogo
         const restartButton = document.createElement("button");
@@ -135,6 +179,38 @@ Dobro = Numero_do_Robo x 2
         button.disabled = true;
     });
 }
+
+
+
+// Função para reiniciar o jogo
+function restartGame() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "none"; // Fecha o modal
+
+    // Limpa a mensagem de resultado
+    const resultMessage = document.querySelector(".result-message");
+    if (resultMessage) {
+        resultMessage.remove();
+    }
+
+    // Habilita os botões novamente
+    const optionsButtons = document.querySelectorAll(".option");
+    optionsButtons.forEach(button => {
+        button.disabled = false;
+    });
+
+    // Reinicia a pontuação e a pergunta
+    score = 0;
+    document.getElementById("score").innerText = "Pontuação: " + score;
+    startGame();
+}
+
+
+
+
+
+
+//samuel
 
 // Função para atualizar recursos ao acertar a questão
 function atualizarRecursoAoAcertar(trilhaId) {
@@ -161,29 +237,5 @@ function atualizarRecursoAoAcertar(trilhaId) {
 function atualizarMoedas(novaQuantidade) {
     document.getElementById('moeda-count').innerText = novaQuantidade;
 }
-
-// Função para reiniciar o jogo
-function restartGame() {
-    const modal = document.getElementById("resultModal");
-    modal.style.display = "none"; // Fecha o modal
-
-    // Limpa a mensagem de resultado
-    const resultMessage = document.querySelector(".result-message");
-    if (resultMessage) {
-        resultMessage.remove();
-    }
-
-    // Habilita os botões novamente
-    const optionsButtons = document.querySelectorAll(".option");
-    optionsButtons.forEach(button => {
-        button.disabled = false;
-    });
-
-    // Reinicia a pontuação e a pergunta
-    score = 0;
-    document.getElementById("score").innerText = "Pontuação: " + score;
-    startGame();
-}
-
 // Inicia o jogo ao carregar a página
 window.onload = startGame;
