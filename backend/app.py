@@ -215,7 +215,33 @@ def remover_coracao(trilha_id):
     except mysql.connector.Error as err:
         return jsonify({"Erro": "Erro ao remover coração", "Detalhes": str(err)})
 
- 
- 
+@app.route('/avancar_exercicio/<int:id_usuario>', methods=['PUT'])
+def avancar_exercicio(id_usuario):
+    try:
+        # Conectar ao banco de dados
+        
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # cursor = mysql.connection.cursor()
+        
+        # Chamar a procedure que vai avançar o exercício
+        cursor.callproc('AvancarExercicio', [id_usuario])
+        
+        # Verificar se a operação foi bem-sucedida
+        conn.commit()
+        # mysql.connection.commit()
+        
+        # Fechar o cursor
+        cursor.close()
+        
+        # Retornar resposta de sucesso
+        return jsonify({"message": "Exercício avançado com sucesso!"}), 200
+    
+    except Exception as e:
+        # Caso haja algum erro, exibir mensagem
+        return jsonify({"error": str(e)}), 400
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
