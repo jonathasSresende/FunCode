@@ -13,12 +13,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
-
 </head>
 <body>
   <nav class="navbar navegacao">
     <div class="container-fluid">
-      <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
+        <a href="menu.html"><img src="./assets/robo_nav.png" alt="robo_nav"></a>
 
         <div class="coluna">    
             <a class="navbar-brand imagem_nav" href="#">
@@ -43,71 +42,56 @@
     </div>
 </nav>
 
- 
-<main class="container">    
-<div class="p-5" style="background-color: #69A5DB">
-<h2>Ranking de Usuários</h2>
-</div>
-<table class="table table-striped" >
-    <thead>
-        <tr>
-            <th>Posição</th>
-            <th>Nick Name</th>
-            <th>Idade</th>
-            <th>Total de Pontos</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Aqui você irá inserir os dados dos usuários -->
-        <!-- <tr class="table-active table-primary" >
-            <td >1</td>
-            <td>Usuario1</td>
-            <td>25</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Usuario2</td>
-            <td>30</td>
-            <td>8</td>
-        </tr>
-        <tr class="table-active table-primary" >
-            <td>3</td>
-            <td>Usuario3</td>
-            <td>22</td>
-            <td>5</td>
-        </tr> -->
-        <!-- Adicione mais usuários conforme necessário -->
-    </tbody>
-</table>
-
+<main class="container my-5">    
+  <div class="p-5" style="background-color: #69A5DB">
+      <h2>Ranking de Usuários</h2>
+  </div>
+  
+  <!-- Exibe o líder do ranking -->
+  <div id="ranking-lider">
+      <h4 id="ranking-lider">Líder do Exercício: Carregando...</h4>
+      <p id="ranking-idade"></p>
+      <p id="ranking-pontos"></p>
+  </div>
+  
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Posição</th>
+              <th>Nick Name</th>
+              <th>Idade</th>
+              <th>Fase</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Dados do ranking serão inseridos aqui via JS -->
+      </tbody>
+  </table>
 </main>
 
 
 <footer class="fixed-bottom">
-      
-  <div class="container my-4">
-    <div class="row mx-auto ">
-      <div class="col ">
-        <a href="./menu.html"><img src="assets/folter_inicio.png" alt=""></a>
-      </div>
-      <div class="col ">
-        <a href="./rank_de_Usuario.html"><img src="assets/folter_trof.png" alt=""></a>
-      </div>
-      <div class="col ">
-        <a href="./TelaConfig.html"><img src="assets/conf.png" alt=""></a>
-      </div>
-      <div class="col ">
-        <a href="./loja.html"><img src="assets/loja.png" alt=""></a>
-      </div>
-      <div class="col ">
-        <a href="./index.html"><img src="assets/btn_sair.png" alt=""></a>
-      </div>
+    <div class="container my-4">
+        <div class="row mx-auto">
+            <div class="col">
+                <a href="./menu.html"><img src="assets/folter_inicio.png" alt=""></a>
+            </div>
+            <div class="col">
+                <a href="./rank_de_Usuario.html"><img src="assets/folter_trof.png" alt=""></a>
+            </div>
+            <div class="col">
+                <a href="./TelaConfig.html"><img src="assets/conf.png" alt=""></a>
+            </div>
+            <div class="col">
+                <a href="./loja.html"><img src="assets/loja.png" alt=""></a>
+            </div>
+            <div class="col">
+                <a href="./index.html"><img src="assets/btn_sair.png" alt=""></a>
+            </div>
+        </div>
     </div>
-  </div>
-
 </footer>
 
-  <script src="./js/ranking.js"></script>
+<script src="./js/ranking.js"></script>
 </body>
 </html>

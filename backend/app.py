@@ -243,5 +243,35 @@ def avancar_exercicio(id_usuario):
         return jsonify({"error": str(e)}), 400
     
 
+# Listar usuários
+@app.route('/tebela', methods=['GET'])
+def get_tebela():
+    conn = get_connection()
+    # vai buscar como dicionário
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""SELECT USUARIO.*, exercicio.ID AS exercicio_id
+                   FROM usuario
+            LEFT JOIN trilha ON usuario.ID = trilha.ID_USUARIO
+            LEFT JOIN recurso ON trilha.ID = recurso.ID_TRILHA
+            LEFT JOIN progresso ON trilha.ID_PROGRESSO = progresso.ID
+            LEFT JOIN exercicio ON progresso.ID_EXERCICIO = exercicio.ID""")
+    # query = """
+    #         SELECT 
+    #             exercicio.ID AS exercicio_id
+    #         LEFT JOIN trilha ON usuario.ID = trilha.ID_USUARIO
+    #         LEFT JOIN recurso ON trilha.ID = recurso.ID_TRILHA
+    #         LEFT JOIN progresso ON trilha.ID_PROGRESSO = progresso.ID
+    #         LEFT JOIN exercicio ON progresso.ID_EXERCICIO = exercicio.ID
+    #     """
+    # Ele vai buscar todos como fetchall
+    users = cursor.fetchall()
+    # Fechar o cursor e a conexão
+    cursor.close()
+    conn.close()
+    return jsonify(users), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
