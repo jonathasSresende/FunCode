@@ -1,3 +1,27 @@
+// URL da API para avançar exercício
+const AVANCAR_EXERCICIO_API_URL = 'http://127.0.0.1:5000/avancar_exercicio/';
+
+// Função para avançar o exercício ao acertar a resposta
+function avancarExercicio(id_usuario) {
+    fetch(AVANCAR_EXERCICIO_API_URL + id_usuario, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            console.log(data.message); // Exibe mensagem de sucesso
+        } else {
+            console.error("Erro ao avançar o exercício:", data);
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao fazer a requisição para avançar exercício:", error);
+    });
+}
+
 
 // URL da API de remoção de corações
 const REMOVER_CORACAO_API_URL = 'http://127.0.0.1:5000/remover_coracao/';
@@ -142,6 +166,10 @@ Resultado é 30
         // Atualizar a fase do usuário no sessionStorage
         const usuarioData = JSON.parse(sessionStorage.getItem('usuario'));
         usuarioData.fase_concluida = 5; // Avança para a proxima fase após completar a atual
+
+        // Atualizar a trilha do usuário no banco de dados
+        const id_usuario = usuarioData.user_id;
+        avancarExercicio(id_usuario); // Chama a função para avançar o exercício
         sessionStorage.setItem('usuario', JSON.stringify(usuarioData));
 
         // Botão para voltar ao menu
